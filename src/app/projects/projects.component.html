@@ -1,0 +1,65 @@
+<div>
+    <h1>Projects</h1>
+</div>
+<div class="div-contaner">
+    <mat-form-field class="search-field" appearance="fill">
+        <mat-label>Search project</mat-label>
+        <input matInput type="text" [(ngModel)]="value" #searchBox id="search-box" (input)="search(searchBox.value)">
+        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <div  class="cont" >
+        <ng-container *ngIf="!searchBox.value; then notSearching else searching">
+
+        </ng-container>
+        
+        <ng-template #notSearching>
+            <mat-card class="example-card" *ngFor="let project of projects">
+                <mat-card-title-group>
+                <mat-card-title>{{project.title}}</mat-card-title>
+                <mat-card-subtitle></mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-content>
+                <p>{{project.description}}</p>
+                <button routerLink="{{project.id}}" mat-raised-button color="primary" >View</button>
+                </mat-card-content>
+                <button class="delete" title="delete project" (click)="delete(project)"
+                mat-stroked-button color="accent" >
+                    Delete</button>
+            </mat-card>
+        </ng-template>
+
+        <ng-template #searching>
+            <mat-card class="example-card" *ngFor="let project of projects$ | async">
+                <mat-card-title-group>
+                <mat-card-title>{{project.title}}</mat-card-title>
+                <mat-card-subtitle></mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-content>
+                <p>{{project.description}}</p>
+                <button routerLink="{{project.id}}" mat-raised-button color="primary" >View</button>
+                </mat-card-content>
+                <button class="delete" title="delete project" (click)="delete(project)"
+                mat-stroked-button color="accent" >
+                    Delete</button>
+            </mat-card>
+        </ng-template>
+
+        <mat-card class="example-card">
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Title</mat-label>
+                    <input matInput #project_title id="project_title" value="">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput #project_description id="project_description" value=""></textarea>
+                </mat-form-field>
+            </div> 
+            <button (click)="add(project_title.value, project_description.value);"
+            mat-raised-button color="primary" >
+                New project</button>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,136 @@
+<mat-card class="lighterBackground">
+    <mat-card-title>Issue details</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+    <mat-card-content>
+      <div class="left">
+        <div>
+          <label class="content-title">ID: </label> <label>{{issue?.id}}</label> 
+        </div>
+        <div>
+          <label class="content-title">Title: </label> <label>{{issue?.title}}</label>
+        </div>
+        <div>
+          <label class="content-title">Priority: </label> <label>{{issue?.priority}}</label>
+        </div>
+        <div>
+          <label class="content-title">Status </label> <label>{{issue?.status}}</label>
+        </div>
+        <div>
+          <label class="content-title">Category: </label> <label>{{issue?.category}}</label>
+        </div>
+      </div>
+      <div class="middle">
+        <div>
+          <label class="content-title">Created on: </label> <label>{{issue?.createdOn | date: 'dd/MM/yyyy, hh:mm'}}</label>
+        </div>
+        <div>
+          <label class="content-title">Created by: </label> <label>{{issue?.createdBy}}</label>
+        </div>
+        <div>
+          <label class="content-title">Description: </label> <label class="display-with-br">{{issue?.description}}</label>
+        </div>
+      </div>
+      <div class="bottom">
+        <div>
+        <label class="content-title">Last updated by: </label> <label>{{issue?.lastChangedBy}}</label> 
+
+        </div>
+        <div>
+          <label class="content-title">Comment: </label> <label class="display-with-br">{{issue?.comment}}</label>          
+        </div>
+        <div>
+          
+        </div>
+      </div>
+        <hr style="margin-top: 20px; margin-bottom: 20px;">
+      <div class="bottom">
+        <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Edit issue
+                </mat-panel-title>
+                <mat-panel-description>
+                  Edit current issue data
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                             
+            <mat-form-field appearance="fill">
+                <mat-label>Title</mat-label>
+                <input matInput [defaultValue]="issue?.title" #issue_title>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea matInput [defaultValue]="issue?.description" #issue_description></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="half-width">
+                <mat-label>Category</mat-label>
+                <mat-select placeholder="Select Category" [value]="issue?.category" #issue_category>
+                    <mat-option *ngFor="let category of categories" [value]="Categories2LabelMapping[category]">
+                    {{Categories2LabelMapping[category]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="half-width" style="margin-left: 10%;">
+                <mat-label>Priority</mat-label>
+                <mat-select placeholder="Select Priority" [value]="issue?.priority" #issue_priority>
+                    <mat-option *ngFor="let priority of priorities" [value]="Priorities2LabelMapping[priority]">
+                    {{Priorities2LabelMapping[priority]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Changed by</mat-label>
+                <input matInput [defaultValue]="issue?.lastChangedBy" #issue_lastChangedBy>
+            </mat-form-field>
+            <mat-card-actions class="sumbit-btn">
+                <button (click)="editIssue(issue_title.value, issue_description.value, issue_category.value, issue_priority.value, issue_lastChangedBy.value)"
+                mat-raised-button type="submit" color="primary">Submit edit</button>
+            </mat-card-actions> 
+
+            </mat-expansion-panel>
+
+
+            <hr style="margin-top: 20px; margin-bottom: 20px;">
+
+            
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Update issue
+                </mat-panel-title>
+                <mat-panel-description>
+                  Update current issue status
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Comment</mat-label>
+                <textarea matInput [defaultValue]="issue?.comment" #issue_comment></textarea>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill" class="half-width">
+                <mat-label>Status</mat-label>
+                <mat-select placeholder="Select status" [value]="issue?.status" #issue_status>
+                    <mat-option *ngFor="let status of statuses" [value]="Statuses2LabelMapping[status]">
+                      {{Statuses2LabelMapping[status]}}
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Updated By</mat-label>
+                <input matInput [defaultValue]="issue?.lastChangedBy" #issue_updatedBy>
+            </mat-form-field>
+            <mat-card-actions class="sumbit-btn">
+                <button (click)="updateIssue(issue_comment.value, issue_status.value, issue_updatedBy.value)"
+                mat-raised-button type="submit" color="primary">Update issue</button>
+            </mat-card-actions>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <mat-card-actions class="sumbit-btn" style="margin-top: 10px;">
+            <button routerLink="/projects/{{issue?.projectId}}" mat-raised-button type="submit" color="primary">Back</button>
+        </mat-card-actions>
+      </div>
+    </mat-card-content>
+</mat-card>

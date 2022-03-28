@@ -1,0 +1,94 @@
+<mat-card>
+    <mat-card-title>{{project?.title}}</mat-card-title>
+    <mat-card-subtitle>{{project?.description}}</mat-card-subtitle>
+    <mat-card-content>
+        <mat-table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+            <ng-container matColumnDef="id">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+              </ng-container>
+              
+              <ng-container matColumnDef="category">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let row"> {{row.category}} </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="title">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+              </ng-container>
+    
+    
+              <ng-container matColumnDef="status">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="createdOn">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let row"> {{row.createdOn | date:'dd/MM/YYYY'}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="priority">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Priority </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let row"> {{row.priority}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="options">
+                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let row"> <button routerLink="/issues/{{row.id}}" mat-raised-button color="primary">Edit</button> </mat-cell>
+              </ng-container>
+          
+              <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          
+              <!-- Row shown when there is no matching data. -->
+              <mat-header-row class="mat-row" *matNoDataRow>
+                <mat-row class="mat-cell" colspan="4">No data matching the filter ""</mat-row>
+              </mat-header-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of issues"></mat-paginator>
+    </mat-card-content>
+
+</mat-card>
+
+
+    <div class="lightBgColor">
+        <h2>Add new issue</h2>
+        
+        <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput #issue_title>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput #issue_description></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Category</mat-label>
+            <mat-select placeholder="Select Category" #issue_category>
+                <mat-option *ngFor="let category of categories" [value]="Categories2LabelMapping[category]">
+                  {{Categories2LabelMapping[category]}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="half-width" style="margin-left: 10%;">
+            <mat-label>Priority</mat-label>
+            <mat-select placeholder="Select Priority" #issue_priority>
+                <mat-option *ngFor="let priority of priorities" [value]="Priorities2LabelMapping[priority]">
+                  {{Priorities2LabelMapping[priority]}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Creator</mat-label>
+            <input matInput #issue_creator>
+          </mat-form-field>
+        <mat-card-actions class="sumbit-btn">
+            <button mat-raised-button type="submit" color="primary" 
+            (click)="addIssue(project?.id!, issue_title.value, issue_description.value, issue_category.value, issue_priority.value, issue_creator.value);">
+            Add new issue</button>
+            <button mat-raised-button type="cancel" color="secundary">Cancel</button>
+
+        </mat-card-actions>
+    </div>
