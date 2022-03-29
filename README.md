@@ -1,27 +1,78 @@
-# BugTracker
+# Bug Tracker
+> Bug tracker for multuple projects
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
+## Table of Contents
+* [General Info](#general-information)
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Screenshots](#screenshots)
+* [Setup](#setup)
+* [Usage](#usage)
+* [Project Status](#project-status)
+* [Room for Improvement](#room-for-improvement)
+* [Acknowledgements](#acknowledgements)
+* [Contact](#contact)
+<!-- * [License](#license) -->
 
-## Development server
+
+## General Information
+The purpose of this project is to test my Angular abilities and solve the problem of tracking issues in multiple projects.
+
+
+## Technologies Used
+- Angular CLI: 13.2.6
+- Node: 16.13.0
+- Package Manager: npm 8.1.0
+- OS: win32 x64
+- Angular: 13.2.7
+
+
+## Features
+List the ready features here:
+- Projects
+- - Create
+- - Delete
+- Issues
+- - Sort issues in projectby columns
+- - Create new issue for project
+- - Edit issues
+- - Preview details
+
+
+## Screenshots
+
+Main page with projects
+![Projects](./img/Projects.png)
+
+List of issues in selected project
+![IssuesList](./img/IssuesList.png)
+
+Detailed prevew of issue and options to update/edit
+![IssueDetail;s](./img/IssueDetails.png)
+
+
+
+## Setup
+All dependencies can be found in package.json. Project currently runs with 'angular-in-memory-web-api' which can be found in app/in-memory-data.service which will always initiate the same database.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Usage
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
-## Build
+Note: Project runs on 'angular-in-memory-web-api' and all changes will not be save.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Project Status
+Project is: _in progress_ 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Room for Improvement
+To do:
+- Delete issue
+- Connection to DB
+- Files clean up
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Contact
+Created by [@SirKOSA](https://sirkosa.github.io)
