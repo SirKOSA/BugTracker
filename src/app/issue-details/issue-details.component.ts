@@ -47,7 +47,7 @@ export class IssueDetailsComponent implements OnInit {
   }
 
   updateIssue(comment: string, status: STATUS, updatedBy: string):void {
-    
+    console.log(this.issue);
     if(this.issue) {
       updatedBy = updatedBy.trim();
       if(!updatedBy) { return; }
@@ -61,6 +61,7 @@ export class IssueDetailsComponent implements OnInit {
   }
 
   editIssue(title: string, description: string, category: CATEGORY,  priority: PRIORITY, lastChangedBy: string):void {
+    console.log(this.issue);
     if(this.issue) {
       title = title.trim();
       lastChangedBy = lastChangedBy.trim();

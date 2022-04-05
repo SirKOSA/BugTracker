@@ -13,7 +13,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
-import {MatRippleModule} from '@angular/material/core';
+import {MatRippleModule, MatNativeDateModule } from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -27,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { TopissuesComponent } from './topissues/topissues.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 
@@ -40,6 +42,7 @@ import { InMemoryDataService } from './in-memory-data.service';
     IssuesComponent,
     IssueDetailsComponent,
     MessagesComponent,
+    TopissuesComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +62,9 @@ import { InMemoryDataService } from './in-memory-data.service';
     MatIconModule,
     FormsModule,
     HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+
 
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }

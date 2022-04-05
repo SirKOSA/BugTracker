@@ -7,10 +7,11 @@ import { STATUS } from '../STATUS.enum';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../project.service';
 import { IssueService } from '../issue.service';
+import { TopissuesComponent } from '../topissues/topissues.component';
 
 import { Location } from '@angular/common';
 
@@ -26,11 +27,9 @@ export class IssuesComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: any;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
-
   project?: Project;
 
-  @Input() issue?: Issue;
-  issues?: Issue[];
+  issues: Issue[] = [];
 
   public Categories2LabelMapping = Categories2LabelMapping;
 
@@ -40,6 +39,7 @@ export class IssuesComponent implements AfterViewInit {
 
   public priorities = Object.values(PRIORITY);
 
+  dateCreatedOn: string = "";
   
 
   constructor(private route: ActivatedRoute,
@@ -51,7 +51,6 @@ export class IssuesComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.getProject();
     this.getIssues();
-    this.dataSource = new MatTableDataSource(this.issues);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -63,12 +62,21 @@ export class IssuesComponent implements AfterViewInit {
     );
   }
 
+  eventsSubject: Subject<void> = new Subject<void>();
+
+  emitEventToChild() {
+    this.eventsSubject.next();
+  }
   
   getIssues(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.issueService.getProjectIssues(id).subscribe(
-      data => this.dataSource.data = data
+      (data) => {
+        this.dataSource.data = data;
+        this.issues = data;
+      } 
     );
+    
   }
 
   addIssue(projectId: number, title: string, description: string, category: CATEGORY, priority: PRIORITY, creator: string): void {
@@ -83,10 +91,10 @@ export class IssuesComponent implements AfterViewInit {
       category: category,
       status: STATUS.Open,
       priority: priority,
-      createdOn: new Date,
+      createdOn: new Date(this.dateCreatedOn),
       createdBy: creator,
       comment: "",
-      lastChange: new Date,
+      lastChange: new Date(),
       lastChangedBy: creator
     };
     console.log(newIssue);
@@ -99,9 +107,15 @@ export class IssuesComponent implements AfterViewInit {
     this.refreshData();
   }
 
+  deleteIssue(issue: Issue){
+    this.issueService.deleteIssue(issue.id).subscribe();
+    this.refreshData();
+  }
+
   refreshData(){
     this.getProject();
     this.getIssues();
+    this.issues = this.dataSource.data;
   }
 
 }

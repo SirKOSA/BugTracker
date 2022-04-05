@@ -15,5 +15,4 @@ export interface Issue {
     comment?: string;
     lastChange?: Date;
     lastChangedBy?: String;
-
 }

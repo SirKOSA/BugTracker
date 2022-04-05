@@ -72,6 +72,15 @@ export class IssueService {
     );
   }
 
+    /** DELETE: delete the project from the server */
+    deleteIssue(id: number): Observable<Issue> {
+      const url = `${this.issuesUrl}/${id}`;
+      return this.http.delete<Issue>(url, this.httpOptions).pipe(
+        tap(_ => this.log(`deleted issue id=${id}`)),
+        catchError(this.handleError<Issue>('deleteIssue'))
+      );
+    }
+
   private log(message: string) {
     this.messageService.add(`IssueService: ${message}`);
   }

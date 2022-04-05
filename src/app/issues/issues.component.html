@@ -36,7 +36,10 @@
 
               <ng-container matColumnDef="options">
                 <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-                <mat-cell mat-cell *matCellDef="let row"> <button routerLink="/issues/{{row.id}}" mat-raised-button color="primary">Edit</button> </mat-cell>
+                <mat-cell mat-cell *matCellDef="let row"> 
+                  <button routerLink="/issues/{{row.id}}" mat-raised-button color="primary">Edit</button>
+                  <button style="margin-left: 5px;" (click)="deleteIssue(row)" mat-raised-button color="primary">Delete</button> 
+                </mat-cell>
               </ng-container>
           
               <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -49,16 +52,26 @@
         </mat-table>
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of issues"></mat-paginator>
     </mat-card-content>
-
 </mat-card>
+<br>
+<app-topissues [issuesSetter]="issues"></app-topissues>
 
+<div class="lightBgColor">    
+  <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Add new issue
+          </mat-panel-title>
+          <mat-panel-description>
+            
+          </mat-panel-description>
 
-    <div class="lightBgColor">
-        <h2>Add new issue</h2>
-        
+        </mat-expansion-panel-header>
+                       
         <mat-form-field appearance="fill">
-            <mat-label>Title</mat-label>
-            <input matInput #issue_title>
+          <mat-label>Title</mat-label>
+          <input matInput #issue_title>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Description</mat-label>
@@ -80,6 +93,12 @@
                 </mat-option>
               </mat-select>
         </mat-form-field>
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>Created on</mat-label>
+          <input matInput [matDatepicker]="issue_createdOn" [(ngModel)]="dateCreatedOn">
+          <mat-datepicker-toggle matSuffix [for]="issue_createdOn"></mat-datepicker-toggle>
+          <mat-datepicker #issue_createdOn></mat-datepicker>
+        </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Creator</mat-label>
             <input matInput #issue_creator>
@@ -88,7 +107,9 @@
             <button mat-raised-button type="submit" color="primary" 
             (click)="addIssue(project?.id!, issue_title.value, issue_description.value, issue_category.value, issue_priority.value, issue_creator.value);">
             Add new issue</button>
-            <button mat-raised-button type="cancel" color="secundary">Cancel</button>
-
+            <!-- <button mat-raised-button type="cancel" color="secundary">Cancel</button> -->
         </mat-card-actions>
-    </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+</div>
+    

@@ -41,7 +41,7 @@
                 <button routerLink="{{project.id}}" mat-raised-button color="primary" >View</button>
                 </mat-card-content>
                 <button class="delete" title="delete project" (click)="delete(project)"
-                mat-stroked-button color="accent" >
+                mat-stroked-button color="accent">
                     Delete</button>
             </mat-card>
         </ng-template>
@@ -57,7 +57,7 @@
                     <textarea matInput #project_description id="project_description" value=""></textarea>
                 </mat-form-field>
             </div> 
-            <button (click)="add(project_title.value, project_description.value);"
+            <button class="new-btn" (click)="add(project_title.value, project_description.value);"
             mat-raised-button color="primary" >
                 New project</button>
         </mat-card>
