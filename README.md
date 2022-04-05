@@ -69,7 +69,7 @@ Project is: _in progress_
 
 ## Room for Improvement
 To do:
-- Delete issue
+- Update/ Edit issue
 - Connection to DB
 - Files clean up
 
